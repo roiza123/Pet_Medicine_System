@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.mapper.HospitalMedicalServiceMapper">
+
+<!--List<HospitalMedicalService> searchMedicalService2(@Param("keyword") String keyword);-->
+    <select id="searchMedicalService2" resultType="com.example.system.model.HospitalMedicalService">
+        select *
+        from medical_service,hospital
+        where medical_service.h_id = hospital.id and
+        (h_name like concat('%',#{keyword},'%') or ms_title like concat('%',#{keyword},'%') or ms_introduce like concat('%',#{keyword},'%') )
+    </select>
+
+    <select id="searchHospitalService" resultType="com.example.system.model.HospitalMedicalService">
+        select *
+        from medical_service,hospital
+        where medical_service.h_id = hospital.id and
+        (h_name like concat('%',#{keyword},'%') or ms_title like concat('%',#{keyword},'%') or ms_introduce like concat('%',#{keyword},'%'))
+    </select>
+</mapper>

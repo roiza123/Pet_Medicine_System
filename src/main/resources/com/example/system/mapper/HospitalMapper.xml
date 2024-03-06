@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.mapper.HospitalMapper">
+    <!--    void addHospital(@Param("hName")String hName, @Param("hPassword")String hPassword, @Param("hWorkTime")String hWorkTime, String hPhone, String hAddress, String hIntroduce, String hIntroducePhotosLink);-->
+    <insert id="addHospital">
+        insert into hospital(h_name,h_username,h_password,h_work_time,h_phone,h_address,h_introduce,h_introduce_photos_link,h_evaluation)
+        values(#{hName},#{hUsername},#{hPassword},#{hWorkTime},#{hPhone},#{hAddress},#{hIntroduce},#{hIntroducePhotosLink},#{hEvaluation})
+    </insert>
+
+    <!--    void deleteHospital(@Param("id") Integer id);-->
+    <update id="deleteHospital">
+        update hospital set is_delete = 1 where id = #{id}
+    </update>
+
+    <!--    void updateHospital(@Param("hName")String hName, @Param("hUsername")String username,@Param("hPassword")String hPassword, @Param("hWorkTime")String hWorkTime, @Param("hPhone")String hPhone, @Param("hAddress")String hAddress, @Param("hIntroduce")String hIntroduce, @Param("hIntroducePhotosLink")String hIntroducePhotosLink,@Param("hEvaluation")Integer hEvaluation);-->
+    <update id="updateHospital">
+        update Hospital
+        set h_name=#{hName},h_username=#{hUsername},h_password = #{hPassword},h_work_time = #{hWorkTime},h_phone =#{hPhone},h_address = #{hAddress},h_introduce=#{hIntroduce},h_introduce_photos_link=#{hIntroducePhotosLink},h_evaluation=#{hEvaluation}
+        where id = #{id} and
+    </update>
+
+    <!--    Hospital ifRightHospital(@Param("username") String username, @Param("password") String password);-->
+    <select id="ifRightHospital" resultType="com.example.system.pojo.Hospital">
+        select * from hospital where h_username =#{hUsername} and h_password=#{hPassword}
+    </select>
+
+    <!--     Hospital ifHave(String hName, String hUsername);-->
+    <select id="ifHave" resultType="com.example.system.pojo.Hospital">
+        select * from hospital where is_delete=0 and (h_name =#{hName} or h_username = #{hUsername})
+    </select>
+
+    <!--    List<Hospital> searchHospital(@Param("key") String key);-->
+    <select id="searchHospital" resultType="com.example.system.pojo.Hospital">
+        select * from hospital where h_name like concat('%',#{key},'%') or h_introduce like concat('%',#{key},'%')
+    </select>
+
+</mapper>

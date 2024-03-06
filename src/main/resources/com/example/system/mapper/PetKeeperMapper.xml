@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.mapper.PetKeeperMapper">
+
+    <!--    void deletePetKeeper(@Param("id") Integer id);-->
+    <update id="deletePetKeeper">
+        update pet_keeper set is_delete = 1 where id = #{id}
+    </update>
+
+    <!--    void updatePetKeeper(@Param("id") Integer id,@Param("pkName") String pkName, @Param("pkUsername") String pkUsername, @Param("pkPassword") String pkPassword, @Param("pkPhone") String pkPhone, @Param("pkAddress") String pkAddress);-->
+    <update id="updatePetKeeper">
+        update pet_keeper
+        set pk_name=#{pkName},pk_username=#{pkUsername},pk_password=#{pkPassword},pk_phone=#{pkPhone},pk_address=#{pkAddress}
+        where id = #{id}
+    </update>
+
+    <!--    PetKeeper ifRightPetKeeper(@Param("pkUsername") String pkUsername, @Param("pkPassword") String pkPassword);-->
+    <select id="ifRightPetKeeper" resultType="com.example.system.pojo.PetKeeper">
+        select * from pet_keeper where pk_username =#{pkUsername} and pk_password =#{pkPassword} and is_delete = 0
+    </select>
+
+    <!--    PetKeeper ifHave(@Param("pkUsername") String pkUsername);-->
+    <select id="ifHave" resultType="com.example.system.pojo.PetKeeper">
+        select * from pet_keeper where pk_username =#{pkUsername} and is_delete = 0
+    </select>
+
+    <!--    void addPetKeeper(@Param("pkName") String pkName, @Param("pkUsername") String pkUsername, @Param("pkPassword") String pkPassword, @Param("pkPhone") String pkPhone, @Param("pkAddress") String pkAddress);-->
+    <insert id="addPetKeeper">
+        insert into pet_keeper (pk_name,pk_username,pk_password,pk_phone,pk_address)
+        values (#{pkName},#{pkUsername},#{pkPassword},#{pkPhone},#{pkAddress})
+    </insert>
+
+</mapper>

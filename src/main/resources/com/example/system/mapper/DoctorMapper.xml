@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.mapper.DoctorMapper">
+
+    <!--void updateDoctor(Integer id,String dName, String dUsername, String dPassword, String dHospital, String dPhone, String dIntroduce, String dIntroducePhotosLink);-->
+    <update id="updateDoctor">
+        update doctor
+        set d_name=#{dName},d_username=#{dUsername},d_password=#{dPassword},d_hospital=#{dHospital},d_phone=#{dPhone},d_introduce=#{dIntroduce},d_introduce_photos_link=#{dIntroducePhotosLink}
+        where id = #{id}
+    </update>
+
+    <!-- void deleteDoctor(Integer id);-->
+    <update id="deleteDoctor">
+        update doctor set is_delete = 1 where id = #{id}
+    </update>
+
+    <!--Doctor searchDoctor1(String dHospital)    -->
+    <select id="searchDoctor1" resultType="com.example.system.pojo.Doctor">
+        select * from doctor where d_hospital = #{dHospital}
+    </select>
+
+    <!--Doctor searchDoctor2(Integer id);    -->
+    <select id="searchDoctor2" resultType="com.example.system.pojo.Doctor">
+        select * from doctor where id = #{id}
+    </select>
+
+    <!--Doctor ifRight(String dUsername, String dPassword)    -->
+    <select id="ifRight" resultType="com.example.system.pojo.Doctor">
+        select * from doctor where d_username=#{dUsername} and d_password=#{dPassword} and is_delete=0
+    </select>
+
+    <!--Doctor ifHave(@Param("dUsername") String dUsername);    -->
+    <select id="ifHave" resultType="com.example.system.pojo.Doctor">
+        select * from doctor where d_username=#{dUsername} and is_delete=0
+    </select>
+
+    <!--void addDoctor(String dName, String dUsername, String dPassword, String dHospital, String dPhone, String dIntroduce, String dIntroducePhotosLink);-->
+    <insert id="addDoctor" parameterType="com.example.system.pojo.Doctor">
+        insert into doctor (d_name,d_username,d_password,d_hospital,d_phone,d_introduce,d_introduce_photos_link)
+        values (#{dName},#{dUsername},#{dPassword},#{dHospital},#{dPhone},#{dIntroduce},#{dIntroducePhotosLink})
+    </insert>
+
+</mapper>

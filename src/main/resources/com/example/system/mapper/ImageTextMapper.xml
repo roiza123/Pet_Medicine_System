@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.mapper.ImageTextMapper">
+
+    <!--    void deleteImageText(@Param("id") Integer id);-->
+    <update id="deleteImageText">
+        update image_text set is_delete = 1 where id = #{id}
+    </update>
+
+    <!--    void updateImageText(@Param("id") Integer id, @Param("hId") Integer hId, @Param("itText") String itText, @Param("itPhotosLink") String itPhotosLink);-->
+    <update id="updateImageText">
+        update image_text
+        set h_id=#{hId},it_title=#{itTitle},it_text=#{itText},it_photos_link=#{itPhotosLink}
+        where id = #{id}
+    </update>
+
+   <!-- List<ImageText> searchImageText1(@Param("hId") Integer hId);   -->
+    <select id="searchImageText1" resultType="com.example.system.pojo.ImageText">
+        select * from image_text where h_id =#{hId}
+    </select>
+
+    <!--    void addImageText(@Param("hId") Integer hId, @Param("itText") String itText, @Param("itPhotosLink") String itPhotosLink);-->
+    <insert id="addImageText">
+        insert into image_text(h_id,it_title,it_text,it_photos_link)
+        values (#{hId},#{itTitle},#{itText},#{itPhotosLink})
+    </insert>
+
+</mapper>

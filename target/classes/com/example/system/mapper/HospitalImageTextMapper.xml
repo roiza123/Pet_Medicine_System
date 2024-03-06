@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.mapper.HospitalImageTextMapper">
+
+    <!--List<ImageText> searchImageText2(@Param("keyword") String keyword);-->
+    <select id="searchImageText2" resultType="com.example.system.model.HospitalImageText">
+        select hospital.h_name,it_title,it_text,it_photos_link,image_text.create_time,h_id
+        from image_text,hospital
+        where image_text.h_id = hospital.id and
+        (it_text like concat('%',#{keyword},'%') or it_title like concat('%',#{keyword},'%'))
+    </select>
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.mapper.PetMapper">
+
+    <!--    void deletePetKeeper(@Param("id") Integer id);-->
+    <update id="deletePet">
+        update pet set is_delete = 1 where id = #{id}
+    </update>
+
+    <!--void updatePet(@Param("id")Integer id,@Param("pName") String pName, @Param("pIntroduce") String pIntroduce, @Param("pAddress") String pAddress, @Param("pPhotosLink") String pPhotosLink, @Param("petKeeperId") Integer petKeeperId, @Param("petKeeperPhone") String petKeeperPhone, @Param("pType") String pType);-->
+    <update id="updatePet">
+        update pet
+        set p_name=#{pName},p_introduce=#{pIntroduce},p_address=#{pAddress},p_photos_link=#{pPhotosLink},pet_keeper_id=#{petKeeperId},pet_keeper_phone=#{petKeeperPhone},p_type = #{pType}
+        where id = #{id}
+    </update>
+
+<!--    List<Pet> searchPet1(@Param("petKeeperId") Integer petKeeperId);-->
+    <select id="searchPet1" resultType="com.example.system.pojo.Pet">
+        select * from pet where pet_keeper_id =#{petKeeperId}
+    </select>
+
+<!--     Pet searchPet2(@Param("id") Integer id);-->
+    <select id="searchPet2" resultType="com.example.system.pojo.Pet">
+        select * from pet where id =#{id}
+    </select>
+
+
+    <!--    void addPet(@Param("pName") String pName, @Param("pIntroduce") String pIntroduce, @Param("pAddress") String pAddress, @Param("pPhotosLink") String pPhotosLink, @Param("petKeeperId") Integer petKeeperId, @Param("petKeeperPhone") String petKeeperPhone, @Param("pType") String pType);-->
+    <insert id="addPet">
+        insert into pet(p_name,p_introduce,p_address,p_photos_link,pet_keeper_id,pet_keeper_phone,p_type)
+        values (#{pName},#{pIntroduce},#{pAddress},#{pPhotosLink},#{petKeeperId},#{petKeeperPhone},#{pType})
+    </insert>
+
+</mapper>
